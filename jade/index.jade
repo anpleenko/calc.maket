@@ -1,0 +1,17 @@
+extends meta/_layout
+
+block content
+  .container
+    .row
+      .col-xs-12
+        h1 Вычисление размеров макета
+        .input-wrap
+          input(type='text' class='get-width' placeholder='Введите ширину')
+          input(type='text' class='get-height' placeholder='Введите длинну')
+          input(type='text' class='get-dpi' placeholder='Введите dpi')
+        .result 0px X 0px
+
+block template
+  |<script type='text/template' id='result-template'>
+  |  <p><%= data.width * (data.dpi / 160) %>px X <%= data.height * (data.dpi / 160) %>px</p>
+  |</script>
