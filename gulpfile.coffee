@@ -9,7 +9,6 @@ autoprefixer = require('gulp-autoprefixer')
 csso         = require('gulp-csso')
 csscomb      = require('gulp-csscomb')
 cssbeautify  = require('gulp-cssbeautify')
-cmq          = require('gulp-combine-media-queries')
 
 # html compile
 jade         = require('gulp-jade')
@@ -20,9 +19,6 @@ coffee       = require('gulp-coffee')
 rjs          = require('gulp-requirejs')
 uglify       = require('gulp-uglify')
 clean        = require('gulp-clean')
-
-# ftp upload
-ftp          = require( 'vinyl-ftp' )
 
 # -----------------------------------
 #   project variables
@@ -61,7 +57,6 @@ gulp.task 'scss', ->
     .pipe sass SASS_CONFIG
     .on 'error', sass.logError
     .pipe autoprefixer AUTOPREFIXER_CONFIG
-    .pipe do cmq
     .pipe do csso
     .pipe cssbeautify CSS_BEAUTIFY_CONFIG
     .pipe do csscomb
@@ -75,19 +70,6 @@ gulp.task 'jade', ->
     .pipe HTMLprettify HTML_PRETTIFY_CONFIG
     .pipe gulp.dest 'build'
     .on 'end', browserSync.reload
-
-gulp.task 'upload', ->
-    conn = ftp.create
-        host:     'ftp.vaeum.com'
-        user:     'u510625194.test'
-        password: 'testtest'
-        parallel:  1
-        log: console.log
-
-    globs = ['./build/**']
-
-    gulp.src globs, { base: './build/', buffer: false }
-      .pipe conn.dest '/calc'
 
 gulp.task 'build', ['coffee'], ->
   rjs

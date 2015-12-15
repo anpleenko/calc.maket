@@ -6,7 +6,6 @@ define [], ->
     initialize: (options) ->
       @targetResult = options.targetResult
       @memorizeDom()
-      @createObj
 
     memorizeDom: ->
       @getWidth = this.$el.find('.get-width')
